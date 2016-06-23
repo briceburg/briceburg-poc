@@ -1,0 +1,18 @@
+---
+
+REDIS_CACHES:
+  # default:
+  #   host: 127.0.0.1
+  #   port: 6379
+  #   db: 0
+
+  fpc:
+    host: 5.5.5.5
+    port: 7777
+    db: 1
+
+  # notice obj uses defaults for port, db, 0...
+  obj:
+    host: 6.6.6.6
+    # port: 6379
+    # db: 0
