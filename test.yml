@@ -1,0 +1,12 @@
+---
+
+- name: test undefined 127.0.0.1 host
+  hosts: 127.0.0.1
+  connection: local
+  gather_facts: no
+  tasks:
+
+    - shell: ls /home
+      register: result
+
+    - debug: var=result
