@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+main(){
+  set -eo pipefail
+  local path="${BASH_SOURCE[0]}"
+  while [ -L "$path" ] ; do path="$(readlink "$path")" ; done
+  readonly PROJECT_ROOT="$( cd "$(dirname "$path")/../" ; pwd -P)"
+  readonly __script=$(basename "$0")
+
+  # build image
+  cd "$PROJECT_ROOT"
+  docker build "$@" .
+}
+
+log(){ echo -e "$__script: $*" >&2; }
+die(){ log "$*"; exit 1; }
+
+main "$@"

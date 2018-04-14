@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+main(){
+  set -eo pipefail
+  local path="${BASH_SOURCE[0]}"
+  while [ -L "$path" ] ; do path="$(readlink "$path")" ; done
+  readonly PROJECT_ROOT="$( cd "$(dirname "$path")/../" ; pwd -P)"
+  readonly __script=$(basename "$0")
+
+  # build and run image
+  image="$("$PROJECT_ROOT/bin/build" -q)"
+
+  docker run -it --rm \
+    -v "$PROJECT_ROOT:$PROJECT_ROOT" \
+    --workdir "$PROJECT_ROOT" \
+    --user "$(id -u):$(id -g)" \
+    "$image" "$@"
+}
+
+log(){ echo -e "$__script: $*" >&2; }
+die(){ log "$*"; exit 1; }
+
+main "$@"
