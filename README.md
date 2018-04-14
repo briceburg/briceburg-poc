@@ -1,5 +1,6 @@
 # briceburg-poc
 
+[![Build Status](https://travis-ci.org/briceburg/briceburg-poc.svg?branch=master)](https://travis-ci.org/briceburg/briceburg-poc)
 ![try some wheels](docs/Agile-Pyramid-comic-transparant.png)
 
 ## usage
