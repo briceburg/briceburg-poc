@@ -1,13 +1,29 @@
 # briceburg-poc
 
+![try some wheels](docs/Agile-Pyramid-comic-transparant.png)
+
 ## usage
 
-### dependency container
+### bin/run
 
-execute scripts inside a container providing their dependencies...
+`bin/run` executes arbitrary commands inside a container providing dependencies. [Dockerfile source](Dockerfile).
 
 ```
-# sort deb-version strings in descending order
+bin/run <command>
+bin/run ls
+bin/run scripts/deb-version-compare.py
+```
+
+
+## scripts
+
+### deb-version-compare.py
+
+sort deb-version strings in descending order (highest priority first).
+
+
+```
+# example
 bin/run scripts/deb-version-compare.py \
   1:1.4.6-8 \
   1.4.7 \
