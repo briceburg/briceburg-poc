@@ -1,9 +1,4 @@
-# application
-#############
-/node_modules
-/config.json
-
-# compiled marko templates
+/tmp
 *.marko.js
 
 #
@@ -11,26 +6,20 @@
 #
 
 # editors
-#########
-
 /nbproject/
 /.settings/
 /.project
 /.pydevproject
 /.classpath
 /.buildpath
-/.idea
+.idea/
 *.iml
-
 # vim
 *~
 *.swp
 *.swo
 
-
 # compiled source
-#################
-
 *.js.map
 *.css.map
 *.com
@@ -40,10 +29,8 @@
 *.o
 *.so
 
-
-# general
-#########
-npm-debug.log
+# misc
 *.tmp
 .DS_Store
 Thumbs.db
+*.orig
