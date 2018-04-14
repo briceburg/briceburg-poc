@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+main(){
+  set -eo pipefail
+
+  echo "validating bind mount is set to PROJECT_ROOT"
+  diff -w <("$PROJECT_ROOT/bin/run" ls -1) <(ls -1 "$PROJECT_ROOT")
+
+  echo "validate runtime ownership"
+  rm -rf "$PROJECT_ROOT/tmp/foo"
+  "$PROJECT_ROOT/bin/run" touch tmp/foo
+  [ "$(id -u)" = "$(get/uid_from_path "$PROJECT_ROOT/tmp/foo")" ]
+}
+
+# usage: get/gid_from_file <path>
+get/gid_from_path(){
+  ls -ldn "$1" 2>/dev/null | awk '{print $4}'
+}
+
+
+# usage: get/gid_from_file <path>
+get/uid_from_path(){
+  ls -ldn "$1" 2>/dev/null | awk '{print $3}'
+}
+
+main "$@"

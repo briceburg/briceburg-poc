@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+main(){
+  set -eo pipefail
+  local path="${BASH_SOURCE[0]}"
+  while [ -L "$path" ] ; do path="$(readlink "$path")" ; done
+  readonly PROJECT_ROOT="$( cd "$(dirname "$path")/../" ; pwd -P)"
+  readonly __script=$(basename "$0")
+
+  # defaults
+  success=false
+  BUILD_NUMBER="${BUILD_NUMBER:-$(date +%s)}"
+
+  # execute tests
+  mkdir -p "$PROJECT_ROOT/tmp"
+  export PROJECT_ROOT
+  export BUILD_NUMBER
+  for x in "$PROJECT_ROOT/tests/"*; do
+    if [ -x "$x" ]; then
+      log "executing: $x"
+      "$x" >&2
+    else
+      log "skipping: $x (not executable)"
+    fi
+  done
+
+  # set test state
+  success=true
+}
+
+cleanup(){
+  $success || die "\\e[1mfailed\\e[0m"
+  log "\\e[1mpassed\\e[0m"
+}
+
+log(){ echo -e "$__script: $*" >&2; }
+die(){ log "$*"; exit 1; }
+
+trap cleanup EXIT
+main "$@"

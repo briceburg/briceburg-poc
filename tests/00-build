@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+main(){
+  set -eo pipefail
+  image="briceburg-poc:$BUILD_NUMBER"
+
+  echo "validating runtime container image gets built"
+  "$PROJECT_ROOT/bin/build"
+
+  echo "validate bin/build accepts arbitrary build flags"
+  docker:rm-image "$image"
+  "$PROJECT_ROOT/bin/build" -q -t "$image" >/dev/null
+  [ -n "$(docker images -q $image)" ]
+}
+
+cleanup(){
+  rv=$?
+  docker:rm-image "$image"
+  exit $rv
+}
+
+docker:rm-image(){
+  docker image rm --force --no-prune "$1" &>/dev/null || true
+}
+
+trap cleanup EXIT
+main "$@"
