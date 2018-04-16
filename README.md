@@ -26,15 +26,14 @@ sort deb-version strings in descending order (highest priority first).
 ```
 # example
 bin/run scripts/deb-version-compare.py \
-  1:1.4.6-8 \
-  1.4.7 \
-  1.4.7-99 \
-  0.8.5 \
-  8.5 \
-  .8.5 \
-  0:1.4.7 \
-  0:8.5 \
-  string-version \
-  2:string-version \
-  1:string-version
+  1.11-12 \
+  1.11-6 \
+  9.99 \
+  0:9.99-12 \
+  1:1.11 \
+  1:1.11-12 \
+  1:1.11-18 \
+  1:9.99 \
+  1:string \
+  string
 ```
