@@ -3,7 +3,7 @@ main(){
   set -eo pipefail
 
   echo "validating bind mount is set to PROJECT_ROOT"
-  diff -w <("$PROJECT_ROOT/bin/run" ls -1) <(ls -1 "$PROJECT_ROOT")
+  diff -w <("$PROJECT_ROOT/bin/run" ls -1 | sort) <(ls -1 "$PROJECT_ROOT" | sort)
 
   echo "validate runtime ownership"
   rm -rf "$PROJECT_ROOT/tmp/foo"
